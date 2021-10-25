@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find match</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/edit_profile.css">
+</head>
+<body>
+    <div class="form-body">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Find a match</h3>
+                        <p>Start a meet video and paste the link here</p>
+                        <form>
+
+                           
+
+                           <div class="col-md-12">
+                                <select class="form-select mt-3" name="skills" id="skills" onchange="getSkill()">
+                                    <option selected="true" disabled="disabled">Choose a skill</option>
+                                    <% skills.forEach(function(skill){ %>
+                                        <option value="<%= skill %>"><%= skill %></option>
+                                      <% }); %>
+                               </select>
+
+                           </div><br/>
+                           <div class="col-md-12">
+                                <a target="_blank" href="https://meet.new/">Start a new meet</a><br/>
+
+                           </div><br/>
+                           <div class="col-md-12">
+                                 <label for="meetLink">Paste the meet link here</label>
+
+                                 <input type="text" name="meetLink" id="meetLink" required />
+
+                           </div>
+
+                            <div class="form-button mt-3">
+                                <button id="submit" type="submit" class="btn btn-primary">Send -></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="/edit_profile.js"></script> -->
+
+    <script>
+        const form = document.forms[0];
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            let skill = document.getElementById("skills").value;
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '/find_match');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({ skill, meetLink: document.getElementById("meetLink").value }));
+            // if (xhr.responseText === 'success') {
+            //         location.assign('/dashboard');
+            //  }
+            location.assign('/dashboard')
+            // alert('meet link sent to a user')
+        })
+    </script>
+</body>
+</html>
