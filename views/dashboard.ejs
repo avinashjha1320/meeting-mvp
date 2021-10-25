@@ -23,13 +23,13 @@
                     <div class="profile-img">
                         <% if (user.picture) { %>
                             <img src="data:image/png;base64,<%= user.picture.toString('base64') %>" />
-                        <% } %>
-                        <form action="/uploadPhoto" method="POST" enctype="multipart/form-data" class="file_pos">
-                            <div class="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" id="profilePic" name="profilePic" />
-                            </div>                           
-                        </form>
+                            <% } %>
+                                <form action="/uploadPhoto" method="POST" enctype="multipart/form-data" class="file_pos">
+                                    <div class="file btn btn-lg btn-primary">
+                                        Change Photo
+                                        <input type="file" id="profilePic" name="profilePic" />
+                                    </div>
+                                </form>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -51,33 +51,33 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <input type="button" class="profile-edit-btn" name="btnAddMore" value="Change Password" id="change-pswd" data-toggle="modal" data-target="#targetModal"/>
+                    <input type="button" class="profile-edit-btn" name="btnAddMore" value="Change Password" id="change-pswd" data-toggle="modal" data-target="#targetModal" />
                     <div class="modal fade" id="targetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLongTitle">Change password</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Change password</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
+                                </div>
+                                <form id="passwordForm" action="/changePassword" method="POST">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <input class="form-control" type="password" name="newPassword" id="newPassword" placeholder="New password">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm new password">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
+
                             </div>
-                            <form id="passwordForm" action="/changePassword" method="POST">
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <input class="form-control" type="password" name="newPassword" id="newPassword" placeholder="New password">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm new password">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
-                            </form>
-                            
-                          </div>
                         </div>
-                      </div>
+                    </div>
                 </div>
 
             </div>
@@ -86,16 +86,18 @@
                     <div class="profile-work">
                         <p>What I Share</p>
                         <% user.skills.forEach(function(skill){ %>
-                            <a href=""><%= skill %></li><br/>
-                          <% }); %>    
-                       
+                            <a href="">
+                                <%= skill %>
+                                    </li><br/>
+                                    <% }); %>
+
                     </div>
                     <div class="profile-work">
                         <p>What I Care</p>
                         <a href="/find_match">Choose one</a>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 extra">
                     <div class="tab-content profile-tab" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <div class="row">
@@ -103,7 +105,9 @@
                                     <label>Email</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><%= user.email %></p>
+                                    <p>
+                                        <%= user.email %>
+                                    </p>
                                 </div>
                             </div>
                             <div class="row">
@@ -111,7 +115,9 @@
                                     <label>Phone</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><%= user.phone %></p>
+                                    <p>
+                                        <%= user.phone %>
+                                    </p>
                                 </div>
                             </div>
                             <div class="row">
@@ -119,7 +125,9 @@
                                     <label>Location</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><%= user.location %></p>
+                                    <p>
+                                        <%= user.location %>
+                                    </p>
                                 </div>
                             </div>
 
@@ -162,16 +170,14 @@
             let confirmPassword = document.getElementById("confirmPassword").value;
             if (!newPassword || !confirmPassword) {
                 alert("Please fill all the fields")
-            }
-            else if (newPassword !== confirmPassword) {
+            } else if (newPassword !== confirmPassword) {
                 alert("Fields do not match");
-            }
-            else {
+            } else {
                 document.getElementById("passwordForm").submit()
             }
         })
     </script>
-   
+
 
 </body>
 
